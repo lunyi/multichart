@@ -1,0 +1,71 @@
+vars: CDPx(0),NH(0),NL(0),AH(0),AL(0);
+vars: perCDPx(""),perNH(""),perNL(""),perAH(""),perAL("");
+vars: close1(0), high1(0),low1(0);
+vars: ma5(0),ma36(0), ma90(0),ma120(0),ma180(0),ma300(0),ma600(0),ma1200(0);
+vars: mad60(0), mad120(0),mad240(0);
+
+
+AH = CDP(2) ;
+NH = CDP(1) ;
+CDPx = CDP(0) ; 
+NL = CDP(-1) ;
+AL = CDP(-2) ;
+
+Plot1(AH,"AH");
+Plot2(NH,"NH");
+Plot3(CDPx,"CDP");
+Plot4(NL,"NL");
+Plot5(AL,"AL");
+
+ma5 = AverageFC( Close, 5 ) ;
+ma36 = AverageFC( Close, 36 ) ;
+ma90= AverageFC( Close, 90 ) ;
+ma120= AverageFC( Close, 120 ) ;
+ma180= AverageFC( Close, 180 ) ;
+ma300= AverageFC( Close, 300 ) ;
+ma600= AverageFC( Close, 600 ) ;
+ma1200= AverageFC( Close, 1200 ) ;
+
+
+Plot6(ma5 , "MA5",RGB(255,0,255),5) ;
+Plot7(ma36, "MA36",RGB(255,165,0),5) ;
+//Plot7( ma90, "MA90" ,RGB(173,255,47)) ;
+//Plot8( ma120, "MA120" ,RGB(0,120,0)) ;
+//Plot9( ma180, "MA180",RGB(255,0,0)) ;
+//Plot10( ma300, "MA300",RGB(255,0,0)) ;
+//Plot11( ma600, "MA600",RGB(0,0,255)) ;
+//Plot12( ma1200, "MA1200", RGB(169,169,169),200) ;
+
+
+
+
+if D>D[1] then begin
+	//mad60 = myMAD(60);
+	//mad120 = myMAD(120);
+	//mad240 = myMAD(240);
+
+	//value1=text_new_s(Date, 1000, mad60 ,  "------" + text(mad60 ));
+	//value2=text_new_s(Date, 1000, mad120 ,  "------" +text(mad120 ));
+	//value3=text_new_s(Date, 1000, mad240 ,  "------" + text(mad240 ));
+
+//       close1 = CloseD(1);
+//       perAH = NumToStr(100*(AH-close1)/close1,2)+"%";
+//	perNH = NumToStr(100*(NH-close1)/close1,2)+"%";
+//	perCDPx = NumToStr(100*(CDPx-close1)/close1,2)+"%";
+//	perNL = NumToStr(100*(NL-close1)/close1,2)+"%";
+//	perAL = NumToStr(100*(AL-close1)/close1,2)+"%";
+
+//	value1=text_new_s(Date, 1000, AH, text(AH) + "   "+ perAH );
+//	value2=text_new_s(Date, 1000, NH, text(NH)+ "   "+ perNH );
+//	value3=text_new_s(Date, 1000, CDPx, text(CDPx)+ "   "+ perCDPx );
+//	value4=text_new_s(Date, 1000, NL, text(NL)+ "   "+ perNL );
+//	value5=text_new_s(Date, 1000, AL, text(AL)+ "   "+ perAL);
+	
+//	mySetText(value1, blue, 15);
+//       mySetText(value2, blue, 15);
+//       mySetText(value3, blue, 15);
+//       mySetText(value4, blue, 15);
+//       mySetText(value5, blue, 15);
+//
+end 
+

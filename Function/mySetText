@@ -1,0 +1,7 @@
+input: 
+	Object(NumericSimple),
+	Color(NumericSimple),
+	Size(NumericSimple);
+
+       value77 = text_setcolor(Object,Color);
+       value77 = text_setsize(Object, Size);

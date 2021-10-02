@@ -1,0 +1,8 @@
+input: _Days(NumericSimple);
+var: count(0),_sum(0);
+
+for count=1 to _Days begin
+	_sum= _sum+ CloseD(count);
+end;
+
+myMAD = _sum  / _Days;

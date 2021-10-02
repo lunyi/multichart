@@ -1,0 +1,28 @@
+//set filter
+var:LEfilter(False),SEfilter(False),LXfilter(False),SXfilter(False);
+var: karCount(0),_index(0),ma5(0), lowest0(99999), lowest1(99999),highest0(99999),highest1(99999),open1(0),close1(0);
+
+ma5 = AverageFC(close,5);
+
+if D>D[1] then begin
+	karCount=0;
+	lowest0=Low;
+	lowest1=Low;
+	highest0=High;
+	open1 = Open;
+	close1 = Close[1];
+end 
+else begin
+	karCount=karCount+1;
+	
+	for _index = 0 to karCount begin
+		if Low[_index] < lowest0 then begin	
+			lowest0=Low[_index] ;	
+		end;
+		
+		if High[_index] > highest0 then begin
+			highest0=High[_index] ;	
+		end;
+
+	end;
+end;

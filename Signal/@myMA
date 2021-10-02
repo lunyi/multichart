@@ -1,0 +1,9 @@
+inputs:ma36(36),ma90(90),ma120(120),ma180(180),ma300(300),ma600(600),ma1200(1200);
+
+plot1(average(close,ma36),"ma36");
+plot2(average(close,ma90),"ma90");
+plot3(average(close,ma120),"ma120");
+plot4(average(close,ma180),"ma180");
+plot5(average(close,ma300),"ma300");
+plot6(average(close,ma600),"ma600");
+plot7(average(close,ma1200),"ma1200");

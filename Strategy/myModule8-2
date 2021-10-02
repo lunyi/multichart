@@ -1,0 +1,121 @@
+//9/24
+//
+var: karCount(0),_index(0),ma5(0), lowest0(99999), lowest1(99999),highest0(99999),highest1(99999),open1(0),close1(0);
+var: _ma5(0),_ma36(0), _ma90(0),_ma120(0),_ma180(0),_ma240(0),_ma270(0),_ma300(0),_ma600(0),_ma1200(0);
+var: CDPx(0),NH(0),NL(0),AH(0),AL(0);
+var: isModule8(false);
+var: _count(0);
+var: _trans(0);
+var: _profitLine(0),_lossLine(0);;
+var: condition1(false),condition2(false),condition3(false);
+
+AH = CDP(2) ;
+NH = CDP(1) ;
+CDPx = CDP(0) ; 
+NL = CDP(-1) ;
+AL = CDP(-2) ;
+
+_ma5 = AverageFC( Close, 5 ) ;
+_ma36 = AverageFC( Close, 36 ) ;
+_ma90= AverageFC( Close, 90 ) ;
+_ma120= AverageFC( Close, 120 ) ;
+_ma180= AverageFC( Close, 180 ) ;
+_ma270= AverageFC( Close, 270 ) ;
+_ma600= AverageFC( Close, 600 ) ;
+_ma1200= AverageFC( Close, 1200 ) ;
+
+if D>D[1] then begin
+	karCount=0;
+	lowest0=Low;
+	lowest1=Low;
+	highest0=High;
+	open1 = Open;
+	close1 = Close[1];
+	_count =0;	
+	_trans  = 0;
+	
+	if marketposition > 0 then sell next bar market;
+	//value1=text_new_s(Date, 1000, AH, text(CloseD(1)));
+	//mySetText(value1, blue, 15);
+	
+	//value1=text_new_s(Date, 1100, AH+25, "ma300=" + text(_ma300));
+	//mySetText(value1, blue, 15);
+
+	//value1=text_new_s(Date, 1100, AH+50, "open=" + text(open));
+	//mySetText(value1, blue, 15);
+	
+	//value1=text_new_s(Date, 1100, AH+75, "ma600=" + text(_ma600));
+	//mySetText(value1, blue, 15);
+	
+	isModule8 =  open > HighD(1) and (open > _ma270) and CloseD(1) < _ma270 and  (_ma600 - 50) > _ma270 and (_ma1200 - 50) > _ma270;
+end
+else begin
+	karCount=karCount+1;
+	
+	for _index = 0 to karCount begin
+		if Low[_index] < lowest0 then begin	
+			lowest0=Low[_index] ;	
+		end;
+		
+		if High[_index] > highest0 then begin
+			highest0=High[_index] ;	
+		end;
+	end;
+end;
+
+//buy
+condition1 = isModule8 = true and close > _ma270 and _trans = 0;
+if  condition1 then begin 
+	buy ("M8") next bar close stop ;
+	_count = _count +1;
+	
+	if _ma1200 > _ma600 then begin
+		_profitLine = _ma1200 ;
+	end
+	else begin 
+		_profitLine = _ma600;
+	end;
+	
+	if close -  HighD(1) > 55 then begin
+		_lossLine = close - 55;
+	end
+	else begin 
+		_lossLine = HighD(1);
+	end;
+	
+	_trans= 1;
+	value1=text_new_s(Date, time, NL - (_count  *15), "enter time=" + text(time));
+	mySetText(value1, blue, 15);
+	
+	_count = _count +1;
+	value1=text_new_s(Date, time, NL - (_count  *25), "buy=" + text(close));
+	mySetText(value1, blue, 15);
+	
+	_count = _count +1;
+	value1=text_new_s(Date, time, NL - (_count  *35), "profit="+ text(_profitLine) + "::" + text(_profitLine-close));
+	mySetText(value1, blue, 15);
+
+	_count = _count +1;
+	value1=text_new_s(Date, time, NL - (_count  *45), "loss=" +  text(_lossLine)+ "::" + text(close-_lossLine));
+	mySetText(value1, blue, 15);
+end;
+
+//stop profit
+condition2 =  marketposition > 0 and isModule8 = true and close > (_profitLine - 20);
+if condition2  then begin
+	sell next bar market;
+	_count = _count +1;
+	
+	value1=text_new_s(Date, time, AL - (_count * 60), "end (profit)=" + text(time));
+	mySetText(value1, blue, 15);
+end;
+//stop loss
+condition3=  marketposition > 0 and isModule8 = true and close <= _lossLine;
+if condition3 then begin
+	sell next bar market;
+	_count = _count +1;
+	
+	value1=text_new_s(Date, time, AL - (_count  *20), "end (loss)=" + text(time));
+	mySetText(value1, blue, 15);
+end;
+

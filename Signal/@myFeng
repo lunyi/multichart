@@ -1,0 +1,19 @@
+//https://www.bituzi.com/2012/04/blog-post_27.html
+input: BTime(0905),ETime(1345);
+var: V0(0),V1(0),V2(0),V3(0),V4(0),V5(0),H1(0),H2(0);
+
+if date <> date[1] then begin
+	V0 = 0;
+end;
+
+if time=BTime then begin
+	V0 = Volume[0];
+	V1 = Volume[301];
+	V2 = Volume[601];
+	V3 = Volume[901];
+	H1 = HighD(1);
+	H2 = LowD(1);
+end;
+
+plot1(H1,"H1");
+plot2(H2,"H2");

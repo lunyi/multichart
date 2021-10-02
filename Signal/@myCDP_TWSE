@@ -1,0 +1,13 @@
+vars: CDP(0),NH(0),NL(0),AH(0),AL(0);
+
+CDP=(HighD(1)+LowD(1)+2*CloseD(1))/4;
+NH=2*CDP-LowD(1);
+NL=2*CDP-HighD(1);
+AH=CDP+(HighD(1)-LowD(1));
+AL=CDP-(HighD(1)-LowD(1));
+
+Plot1(AH,"AH");
+Plot2(NH,"NH");
+Plot3(CDP,"CDP");
+Plot4(NL,"NL");
+Plot5(AL,"AL");
